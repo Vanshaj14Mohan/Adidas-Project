@@ -70,27 +70,6 @@ with dwn2:
     
 st.divider()
 
-#Another chart based on TotalSales and UnitsSold
-# res1 = df.groupby(by="State")[["TotalSales", "UnitsSold"]].sum().reset_index()
-
-# fig3 = go.Figure()
-# fig3.add_trace(go.Bar(x= res1["State"], y = res1["TotalSales"], name = "Total Sales"))
-# fig3.add_trace(go.Scatter(x= res1["State"], y = res1["UnitsSold"], mode = "lines",
-#                       name = "Units Sold", yaxis = "y2"))
-
-# fig3.update_layout(
-#     title = "Total Sales and Units sold by a State",
-#     xaxis = dict(title ="State"),
-#     yaxis = dict(title = "Total Sales", showgird=False),
-#     yaxis2 = dict(title = "Units Sold", overlaying = "y", side = "right"),
-#     template = "gridon",
-#     legend = dict(x=1,y=1)
-# )
-
-# _, col6 = st.columns[[0.1,1]]
-# with col6:
-#     st.plotly_chart(fig3, use_container_width=True)
-
 res1 = df.groupby(by="State")[["TotalSales", "UnitsSold"]].sum().reset_index()
 
 fig3 = go.Figure()  # Fixed: go.Figure() with capital F
@@ -160,15 +139,6 @@ with view4:
 with dwn4:
     st.download_button("Get Data", data=res2.to_csv().encode("utf-8"), file_name="Sales_by_region.csv", mime="text/csv")
 st.divider()
-
-# # Now if we want to view the entire dataset.
-# _, view5, dwn5 = st.columns([0.4,0.45,0.45])
-# with view5:
-#     expander = st.expander("View Entire Sales Raw Dataset")
-#     expander.write(df)
-# with dwn5:
-#     st.download_button("Get Raw Data", data=df.to_csv().encode("utf-8"), file_name="Sales_RawData.csv", mime="text/csv")
-# st.divider()
 
 # Adding two more simple graphs
 st.subheader("Additional Insights")
