@@ -127,7 +127,7 @@ fig4 = px.treemap(treemap, path = ["Region", "City"], values = "TotalSales", hov
 fig4.update_traces(textinfo = "label+value")
 
 with col7:
-    st.subheader(":point_right: Total Sales by Region and City in Treemap")
+    st.subheader("Total Sales by Region and City in Treemap")
     st.plotly_chart(fig4, use_container_width=True)
 
 _, view4, dwn4, = st.columns([0.4, 0.45, 0.45])
