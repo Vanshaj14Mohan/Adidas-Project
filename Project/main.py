@@ -161,6 +161,65 @@ with dwn4:
     st.download_button("Get Data", data=res2.to_csv().encode("utf-8"), file_name="Sales_by_region.csv", mime="text/csv")
 st.divider()
 
+# # Now if we want to view the entire dataset.
+# _, view5, dwn5 = st.columns([0.4,0.45,0.45])
+# with view5:
+#     expander = st.expander("View Entire Sales Raw Dataset")
+#     expander.write(df)
+# with dwn5:
+#     st.download_button("Get Raw Data", data=df.to_csv().encode("utf-8"), file_name="Sales_RawData.csv", mime="text/csv")
+# st.divider()
+
+# Adding two more simple graphs
+st.subheader("Additional Insights")
+
+# First graph: City vs Operating Profit
+col8, col9 = st.columns(2)
+
+with col8:
+    fig5 = px.bar(df, x="City", y="OperatingProfit", 
+                 title="Operating Profit by City",
+                 labels={"OperatingProfit": "Operating Profit ($)"},
+                 color="City",
+                 template="gridon")
+    fig5.update_layout(showlegend=False)
+    st.plotly_chart(fig5, use_container_width=True)
+
+# Second graph: Region vs Price per Unit
+with col9:
+    fig6 = px.box(df, x="Region", y="PriceperUnit", 
+                 title="Price per Unit Distribution by Region",
+                 labels={"PriceperUnit": "Price per Unit ($)"},
+                 color="Region",
+                 template="gridon")
+    st.plotly_chart(fig6, use_container_width=True)
+
+# Add download buttons for these new visualizations
+_, view6, dwn6, view7, dwn7 = st.columns([0.15, 0.20, 0.20, 0.20, 0.20])
+
+with view6:
+    expander = st.expander("View Operating Profit by City")
+    data_city_profit = df.groupby("City")["OperatingProfit"].sum().reset_index()
+    expander.write(data_city_profit)
+
+with dwn6:
+    st.download_button("Get Operating Profit Data", 
+                      data=data_city_profit.to_csv().encode("utf-8"),
+                      file_name="OperatingProfit_by_City.csv", 
+                      mime="text/csv")
+
+with view7:
+    expander = st.expander("View Price per Unit by Region")
+    data_region_price = df.groupby("Region")["PriceperUnit"].describe()
+    expander.write(data_region_price)
+
+with dwn7:
+    st.download_button("Get Price per Unit Data", 
+                      data=data_region_price.to_csv().encode("utf-8"),
+                      file_name="PriceperUnit_by_Region.csv", 
+                      mime="text/csv")
+st.divider()
+
 # Now if we want to view the entire dataset.
 _, view5, dwn5 = st.columns([0.4,0.45,0.45])
 with view5:
